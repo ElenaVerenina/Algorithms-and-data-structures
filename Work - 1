@@ -1,0 +1,123 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Lesson___1
+{
+    class Program
+    {
+        public class TestCase
+        {
+            public int X { get; set; }
+            public bool Expected { get; set; }
+            public Exception ExpectedException { get; set; }
+        }
+
+        static void Test(TestCase testCase)
+        {
+            try
+            {
+                Console.WriteLine("------------------");
+                Console.WriteLine($"Number - {testCase.X}");
+                Console.WriteLine("------------------");
+                var actual = SimpleNumber(testCase.X);
+                
+
+                if (actual == testCase.Expected)
+                {
+                    if (SimpleNumber(testCase.X) == true)
+                        Console.WriteLine("Number - simple");
+                    else
+                        Console.WriteLine("Number - not simple");
+                    Console.WriteLine("VALID TEST");
+                }
+                else
+                {
+                    Console.WriteLine("INVALID TEST");
+                }
+            }
+            catch (Exception ex)
+            {
+                if (testCase.ExpectedException != null)
+                {
+                   
+                    Console.WriteLine("VALID TEST");
+                }
+                else
+                {
+                    Console.WriteLine("INVALID TEST");
+                }
+            }
+        }
+
+
+
+        static bool SimpleNumber (int n)
+        {
+            int d = 0;         
+            for (int i=2; i<n; i++)
+            {
+                if (n % i == 0)
+                    d++;
+            }
+            if (d == 0)
+            {   
+                return true;
+            }
+                
+            else
+            {   
+                return false;
+            }
+                
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter n");
+            int n = Convert.ToInt32(Console.ReadLine());
+            if (SimpleNumber(n)==true)
+                Console.WriteLine("Number - simple");
+            else
+                Console.WriteLine("Number - not simple");
+
+            var testCase1 = new TestCase()
+            {
+                X = 6,
+                Expected = false,
+                ExpectedException = null
+            };
+            Test(testCase1);
+            var testCase2 = new TestCase()
+            {
+                X = 5,
+                Expected = true,
+                ExpectedException = null
+            };
+            Test(testCase2);
+            var testCase3 = new TestCase()
+            {
+                X = 7,
+                Expected = true,
+                ExpectedException = null
+            };
+            Test(testCase3);
+            var testCase4 = new TestCase()
+            {
+                X = -45,                
+                ExpectedException = null
+            };
+            Test(testCase4);
+            var testCase5 = new TestCase()
+            {
+                X = 0,
+                ExpectedException = null
+            };
+            Test(testCase5);
+
+            Console.ReadKey();
+
+        }
+    }
+}
