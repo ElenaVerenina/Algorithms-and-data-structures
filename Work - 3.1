@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Work___3._1
+{
+    class Program
+    {
+        public class TestCase
+        {
+            public int X { get; set; }
+            public int Expected { get; set; }
+            public Exception ExpectedException { get; set; }
+        }
+
+        static void Test(TestCase testCase)
+        {
+            try
+            {
+                Console.WriteLine("------------------");
+                Console.WriteLine($"X - {testCase.X}");
+                Console.WriteLine("------------------");
+                var actual = Fibonacci(testCase.X);
+                Console.WriteLine($"Fibonacci of X - {Fibonacci(testCase.X)}");
+                if (actual == testCase.Expected)
+                {                    
+                    Console.WriteLine("VALID TEST");
+                }
+                else
+                {
+                    Console.WriteLine("INVALID TEST");
+                }
+            }
+            catch (Exception ex)
+            {                
+                if (testCase.ExpectedException != null)
+                {
+
+                    Console.WriteLine("VALID TEST");
+                }
+                else
+                {
+                    Console.WriteLine("INVALID TEST");
+                }
+            }
+        }
+        static int Fibonacci (int n)
+        {          
+                if (n == 0)
+                    return 0;
+                else if (n == 1)
+                    return 1;
+                else
+            {
+                int fib = Fibonacci(n - 2) + Fibonacci(n - 1);
+                return fib;
+            }           
+
+
+
+        }
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Enter n");
+            int n = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Fibonacci of n - {Fibonacci(n)}");
+
+            var testCase1 = new TestCase()
+            {
+                X = 1,
+                Expected = 1,
+                ExpectedException = null
+            };
+            Test(testCase1);
+            var testCase2 = new TestCase()
+            {
+                X = 2,
+                Expected = 1,
+                ExpectedException = null
+            };
+            Test(testCase2);
+            var testCase3 = new TestCase()
+            {
+                X = 5,
+                Expected = 5,
+                ExpectedException = null
+            };
+            Test(testCase3);
+            var testCase4 = new TestCase()
+            {
+                X = 4,
+                Expected = 3,
+                ExpectedException = null
+            };
+            Test(testCase4);
+            var testCase5 = new TestCase()
+            {
+                X = 9,
+                Expected = 34,
+                ExpectedException = null
+            };
+            Test(testCase5);
+            Console.ReadKey();
+        }
+    }
+}
